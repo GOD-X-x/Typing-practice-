@@ -606,4 +606,24 @@
 
     function resetStats() {
       clearInterval(timerInterval);
-      startTime =
+      startTime = null;
+      totalTypedChars = 0;
+      correctTypedChars = 0;
+      mistakes = 0;
+      lastInputLength = 0;
+      document.getElementById("stat-wpm").textContent = "0";
+      document.getElementById("stat-acc").textContent = "100%";
+      document.getElementById("stat-time").textContent = "0s";
+      document.getElementById("stat-mistakes").textContent = "0";
+    }
+
+    function resetToMenu() {
+      clearInterval(timerInterval);
+      document.getElementById('practice-screen').style.display = 'none';
+      document.getElementById('difficulty-screen').style.display = 'none';
+      document.getElementById('result-screen').style.display = 'none';
+      document.getElementById('menu-screen').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
