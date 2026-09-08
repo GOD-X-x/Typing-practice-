@@ -7,421 +7,537 @@
   <style>
     * {
       box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
-    body {
-      background-color: #f8fafc;
-      color: #0f172a;
+    
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #0b0c1b;
+      background-image: radial-gradient(circle at 50% 30%, #1e1b4b 0%, #0f1026 60%, #080711 100%);
+      color: #ffffff;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    /* Top Action Bar */
+    .top-bar {
+      width: 100%;
+      padding: 16px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .theme-btn {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Main App Card */
+    .card-wrapper {
+      padding: 16px;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 16px;
+      min-height: calc(100vh - 80px);
     }
-    #container {
-      background: #ffffff;
-      padding: 28px 24px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 28px 20px;
+      border-radius: 24px;
       text-align: center;
       width: 100%;
-      max-width: 480px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    /* Progress Bar */
-    #progress-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background-color: #e2e8f0;
-    }
-    #progress-bar {
-      height: 100%;
-      width: 0%;
-      background-color: #6366f1;
-      transition: width 0.3s ease;
+      max-width: 360px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
     }
 
+    .status-text {
+      font-size: 16px;
+      color: #cbd5e1;
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    /* Base Button Styling */
     .btn {
+      display: block;
+      width: 100%;
       font-size: 16px;
       font-weight: 600;
-      padding: 14px 24px;
-      border: none;
-      border-radius: 12px;
+      padding: 16px;
+      border: 0;
+      border-radius: 16px;
+      margin-bottom: 14px;
+      color: #ffffff;
       cursor: pointer;
-      width: 100%;
-      margin-bottom: 12px;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .btn:active {
-      transform: scale(0.98);
-    }
-    .btn-easy {
-      background-color: #10b981;
-      color: white;
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
-    }
-    .btn-easy:hover {
-      background-color: #059669;
-    }
-    .btn-expert {
-      background-color: #ef4444;
-      color: white;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
-    }
-    .btn-expert:hover {
-      background-color: #dc2626;
-    }
-    .btn-secondary {
-      background-color: #f1f5f9;
-      color: #475569;
-      margin-top: 12px;
-    }
-    .btn-secondary:hover {
-      background-color: #e2e8f0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
-    #status {
-      font-size: 14px;
-      color: #64748b;
-      margin-bottom: 20px;
-      font-weight: 500;
-    }
-    #counter {
-      font-size: 13px;
-      font-weight: 700;
-      color: #6366f1;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-    }
-    #stats-panel {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      background: #f8fafc;
-      padding: 16px;
-      border-radius: 14px;
-      border: 1px solid #e2e8f0;
-      margin-bottom: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      color: #64748b;
-    }
-    .stat-box span {
-      display: block;
-      font-size: 20px;
-      font-weight: 700;
-      color: #0f172a;
-      margin-top: 2px;
-    }
-    #word-display {
-      font-size: 26px;
-      font-weight: 700;
-      margin: 24px 0;
-      color: #0f172a;
-      line-height: 1.4;
-      word-wrap: break-word;
-      min-height: 42px;
-      letter-spacing: 0.5px;
+    .btn-easy { 
+      background: #059669;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     }
     
-    /* Character Styling */
-    .char-correct {
-      color: #10b981;
+    .btn-expert { 
+      background: #4f46e5;
+      background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
     }
-    .char-wrong {
-      color: #ef4444;
-      background-color: #fef2f2;
-      border-radius: 4px;
-      text-decoration: underline;
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
     }
-    .char-extra {
-      color: #ef4444;
-      background-color: #fee2e2;
-      border-radius: 4px;
+
+    /* Grid & Options */
+    .section-label {
+      font-size: 11px;
+      color: #a5b4fc;
+      text-align: left;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      font-weight: 700;
     }
-    .char-current {
-      border-bottom: 3px solid #6366f1;
+
+    .option-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
     }
+
+    .opt-btn {
+      flex: 1 1 40%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #94a3b8;
+      padding: 12px 6px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .opt-btn.active {
+      background: #4f46e5;
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+    }
+
+    /* Practice Area */
+    #word-display {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 20px 0;
+      min-height: 48px;
+      letter-spacing: 1px;
+      word-break: break-word;
+    }
+
+    .char-correct { color: #34d399; }
+    .char-wrong { color: #f87171; background: rgba(248, 113, 113, 0.2); border-radius: 4px; }
+    .char-current { border-bottom: 2px solid #818cf8; }
 
     #type-input {
       font-size: 18px;
-      padding: 14px 16px;
+      padding: 14px;
       width: 100%;
       text-align: center;
-      border: 2px solid #e2e8f0;
-      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
       outline: none;
-      background-color: #f8fafc;
-      transition: all 0.2s ease;
-    }
-    #type-input:focus {
-      border-color: #6366f1;
-      background-color: #ffffff;
-      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-    }
-    select {
-      font-size: 15px;
-      padding: 12px 16px;
-      width: 100%;
-      border-radius: 12px;
-      border: 2px solid #e2e8f0;
-      background-color: #f8fafc;
-      color: #0f172a;
+      background: rgba(0, 0, 0, 0.4);
+      color: #ffffff;
       margin-bottom: 16px;
-      outline: none;
     }
-    select:focus {
-      border-color: #6366f1;
+
+    #stats-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      border-radius: 14px;
+      margin-bottom: 16px;
+      font-size: 11px;
+    }
+
+    .stat-box {
+      flex: 1 1 40%;
+      text-align: center;
+    }
+
+    .stat-box span {
+      display: block;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    #counter {
+      font-size: 13px;
+      font-weight: 700;
+      color: #a5b4fc;
+      margin-bottom: 12px;
+    }
+
+    /* Light Theme Adjustments (Matched to Screenshot) */
+    body.light-mode {
+      background-color: #f0f1ff;
+      background-image: linear-gradient(180deg, #eef2ff 0%, #fae8ff 100%);
+      color: #1e1b4b;
+    }
+
+    body.light-mode .glass-card {
+      background: #ffffff;
+      border: 1px solid #ffffff;
+      border-radius: 28px;
+      box-shadow: 0 12px 35px rgba(147, 51, 234, 0.08);
+    }
+
+    body.light-mode .status-text {
+      color: #2e1065;
+      font-weight: 700;
+    }
+
+    body.light-mode .section-label {
+      color: #5b21b6;
+      font-weight: 700;
+    }
+
+    body.light-mode #counter {
+      color: #5b21b6;
+    }
+
+    body.light-mode .theme-btn {
+      background: #5b46f6;
+      border: none;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(91, 70, 246, 0.3);
+    }
+
+    body.light-mode .btn-easy {
+      background: #059669;
+      box-shadow: 0 6px 18px rgba(5, 150, 105, 0.25);
+    }
+
+    body.light-mode .btn-expert {
+      background: #5b46f6;
+      box-shadow: 0 6px 18px rgba(91, 70, 246, 0.3);
+    }
+
+    body.light-mode .btn-secondary {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #1e293b;
+      box-shadow: none;
+    }
+
+    body.light-mode .opt-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      box-shadow: none;
+    }
+
+    body.light-mode .opt-btn.active {
+      background: #5b46f6;
+      border-color: #5b46f6;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(91, 70, 246, 0.25);
+    }
+
+    body.light-mode #type-input {
+      background: #f8fafc;
+      color: #1e1b4b;
+      border: 2px solid #5b46f6;
+    }
+
+    body.light-mode #stats-panel {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+    }
+
+    body.light-mode .stat-box span {
+      color: #2e1065;
     }
   </style>
 </head>
 <body>
 
-  <div id="container">
-    <div id="progress-container">
-      <div id="progress-bar"></div>
-    </div>
+  <div class="top-bar">
+    <button type="button" class="theme-btn" id="theme-toggle">Light Mode</button>
+  </div>
 
-    <!-- Main Menu -->
-    <div id="menu-screen">
-      <div id="status">Select Practice Mode</div>
-      <button class="btn btn-easy" onclick="selectMode('easy')">Easy Mode</button>
-      <button class="btn btn-expert" onclick="selectMode('expert')">Expert Mode</button>
-    </div>
-
-    <!-- Difficulty Selector -->
-    <div id="difficulty-screen" style="display: none;">
-      <div id="status">Select Expert Word Length</div>
-      <select id="diff-select">
-        <option value="easy_words">Short Words (1-4 letters)</option>
-        <option value="medium_words" selected>Medium Words (5-7 letters)</option>
-        <option value="hard_words">Long Words (8+ letters)</option>
-      </select>
-      <button class="btn btn-expert" onclick="startPractice('expert')">Start Expert Practice</button>
-      <button class="btn btn-secondary" onclick="resetToMenu()">Back</button>
-    </div>
-
-    <!-- Practice Screen -->
-    <div id="practice-screen" style="display: none;">
-      <div id="counter">Word 1 of 10</div>
+  <div class="card-wrapper">
+    <div class="glass-card">
       
-      <div id="stats-panel" style="display: none;">
-        <div class="stat-box">WPM<span id="stat-wpm">0</span></div>
-        <div class="stat-box">ACCURACY<span id="stat-acc">100%</span></div>
-        <div class="stat-box">TIME<span id="stat-time">0s</span></div>
-        <div class="stat-box">MISTAKES<span id="stat-mistakes">0</span></div>
+      <!-- Menu Screen -->
+      <div id="menu-screen">
+        <div class="status-text">Choose Mode</div>
+        <button type="button" id="btn-easy" class="btn btn-easy">Easy Practice</button>
+        <button type="button" id="btn-expert" class="btn btn-expert">Expert Practice</button>
       </div>
 
-      <div id="word-display">Ready</div>
-      <input type="text" id="type-input" placeholder="Type here..." autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="go">
-      <button class="btn btn-secondary" onclick="resetToMenu()">Main Menu</button>
+      <!-- Difficulty & Goal Screen -->
+      <div id="difficulty-screen" style="display: none;">
+        <div class="status-text">Configure Practice Goal</div>
+        
+        <div class="section-label">TARGET GOAL</div>
+        <div class="option-grid">
+          <button type="button" class="opt-btn goal-btn active" data-type="words" data-val="25">25 Words</button>
+          <button type="button" class="opt-btn goal-btn" data-type="words" data-val="50">50 Words</button>
+          <button type="button" class="opt-btn goal-btn" data-type="time" data-val="60">1 Min Test</button>
+          <button type="button" class="opt-btn goal-btn" data-type="time" data-val="120">2 Min Test</button>
+        </div>
+
+        <div class="section-label">WORD LENGTH</div>
+        <div class="option-grid">
+          <button type="button" class="opt-btn diff-btn" data-diff="easy">Short (1-4)</button>
+          <button type="button" class="opt-btn diff-btn active" data-diff="medium">Medium (5-7)</button>
+        </div>
+
+        <button type="button" id="btn-start-expert" class="btn btn-expert">Start Practice</button>
+        <button type="button" class="btn btn-secondary btn-back-menu">Back</button>
+      </div>
+
+      <!-- Practice Screen -->
+      <div id="practice-screen" style="display: none;">
+        <div id="counter">Word 1</div>
+        
+        <div id="stats-panel" style="display: none;">
+          <div class="stat-box">WPM<span id="stat-wpm">0</span></div>
+          <div class="stat-box">ACCURACY<span id="stat-acc">100%</span></div>
+          <div class="stat-box">TIME<span id="stat-time">0s</span></div>
+          <div class="stat-box">MISTAKES<span id="stat-mistakes">0</span></div>
+        </div>
+
+        <div id="word-display">...</div>
+        <input type="text" id="type-input" placeholder="Type here..." autocomplete="off" autocapitalize="none" spellcheck="false">
+        <button type="button" class="btn btn-secondary btn-back-menu">Main Menu</button>
+      </div>
+
+      <!-- Results Screen -->
+      <div id="result-screen" style="display: none;">
+        <div class="status-text" style="font-size: 20px; font-weight: 700;">🎉 Test Completed!</div>
+        <div id="stats-panel">
+          <div class="stat-box">FINAL WPM<span id="final-wpm">0</span></div>
+          <div class="stat-box">ACCURACY<span id="final-acc">100%</span></div>
+          <div class="stat-box">TOTAL TIME<span id="final-time">0s</span></div>
+          <div class="stat-box">MISTAKES<span id="final-mistakes">0</span></div>
+        </div>
+        <button type="button" class="btn btn-easy btn-back-menu">Try Again</button>
+      </div>
+
     </div>
   </div>
 
   <script>
-    function generateVocabulary() {
-      const prefixes = ["a", "be", "con", "de", "dis", "en", "ex", "in", "inter", "mis", "non", "over", "pre", "pro", "re", "sub", "un", "trans", "super", "out"];
-      const roots = ["act", "form", "port", "spect", "tract", "press", "struct", "tend", "vent", "scrib", "graph", "ject", "duct", "fect", "stat", "pos", "mitt", "cap", "grad", "lect"];
-      const suffixes = ["able", "al", "ance", "ation", "ed", "en", "er", "est", "ful", "ible", "ing", "ion", "ish", "ism", "ist", "ity", "ive", "less", "ment", "ness"];
+    function generate2000Words() {
+      var roots = ["act","art","bio","cap","doc","geo","graph","log","meter","path","phon","photo","port","scope","scrib","sign","spec","struct","tele","vid","vis","aud","auto","chron","cred","dict","duc","form","jac","manu","mit","ped","pop","pos","press","rupt","sec","sent","stat","tact","tract","use","vac","vers","voc","flex","gen","lab","loc","nav","opt","part","pend","psych","sign","sol","terr","therm","urb","vid"];
+      var prefixes = ["re","un","in","dis","pro","pre","sub","super","inter","trans","over","under","anti","counter","extra","hyper","micro","mis","non","out","poly","semi","ultra"];
+      var suffixes = ["ing","ed","er","ly","ment","ness","tion","able","ive","less","ful","ous","ity","ized","al","ance","ent","ic","ish","ist","oid","or","ship","ward"];
       
-      const baseWords = [
-        "apple", "banana", "cherry", "dragon", "elephant", "falcon", "giraffe", "horizon", "island", "jungle",
-        "koala", "lemon", "mountain", "nebula", "ocean", "penguin", "quartz", "river", "starlight", "tiger",
-        "umbrella", "valley", "whisper", "xenon", "yellow", "zebra", "anchor", "beacon", "canyon", "dune",
-        "echo", "forest", "glacier", "harbor", "island", "journey", "kingdom", "lagoon", "meadow", "oasis",
-        "panther", "quest", "reef", "summit", "tundra", "universe", "volcano", "waterfall", "xenial", "yacht",
-        "zephyr", "archive", "breeze", "crystal", "diamond", "emerald", "fountain", "galaxy", "harmony", "iron",
-        "jewel", "key", "lantern", "magnet", "nature", "orbit", "planet", "quantum", "rhythm", "signal",
-        "thunder", "utopia", "velocity", "wisdom", "xray", "year", "zenith", "ability", "balance", "courage",
-        "destiny", "energy", "freedom", "growth", "hope", "insight", "justice", "knowledge", "loyalty", "motion",
-        "noble", "optimism", "passion", "quality", "respect", "strength", "trust", "unity", "vision", "wonder"
-      ];
-
-      const set = new Set(baseWords);
-      
-      for (let p of prefixes) {
-        for (let r of roots) {
-          set.add(p + r);
-          for (let s of suffixes) {
-            set.add(p + r + s);
-            if (set.size >= 1000) break;
+      var pool = [];
+      for (var r = 0; r < roots.length; r++) {
+        pool.push(roots[r]);
+        for (var s = 0; s < suffixes.length; s++) {
+          pool.push(roots[r] + suffixes[s]);
+        }
+        for (var p = 0; p < prefixes.length; p++) {
+          pool.push(prefixes[p] + roots[r]);
+          for (var s2 = 0; s2 < suffixes.length; s2++) {
+            if (pool.length < 2000) {
+              pool.push(prefixes[p] + roots[r] + suffixes[s2]);
+            }
           }
-          if (set.size >= 1000) break;
         }
-        if (set.size >= 1000) break;
       }
-
-      let count = 1;
-      while (set.size < 1000) {
-        set.add("word" + count);
-        count++;
-      }
-
-      return Array.from(set);
+      return pool.slice(0, 2000);
     }
 
-    function generateSentences() {
-      const subjects = ["The quick developer", "A hard-working student", "An enthusiastic learner", "The swift typist", "Every smart programmer", "A curious mind", "The dedicated athlete", "An inspired artist", "The focused writer", "A persistent thinker"];
-      const verbs = ["practices typing", "builds new applications", "solves complex problems", "explores modern technology", "writes clean code", "studies every single day", "improves typing speed", "learns valuable skills", "creates impressive projects", "achieves great goals"];
-      const objects = ["with passion and speed.", "to master the keyboard.", "on a mobile phone.", "without any hesitation.", "for continuous improvement.", "to reach higher accuracy.", "step by step every day.", "with total focus.", "to build a bright future.", "and enjoys the process."];
-      const punctuation = [".", "!", "?", "..."];
+    function generate200Sentences() {
+      var subjects = ["The engineer", "A skilled programmer", "Every fast typist", "Our technical team", "The mobile user", "An experienced author", "A creative designer", "The modern developer", "Every smart student", "A focus expert"];
+      var verbs = ["writes", "builds", "creates", "improves", "optimizes", "practices", "tests", "develops", "analyzes", "masters"];
+      var objects = ["clean source code", "typing speed", "modern software", "daily productivity", "accurate text", "mobile applications", "complex algorithms", "digital solutions", "efficient workflows", "great key response"];
+      var endings = ["with high precision.", "every single day.", "without making typos.", "for maximum performance.", "using targeted practice.", "in a modern environment.", "with steady focus.", "to achieve success.", "under strict deadlines.", "for personal growth."];
 
-      const list = [];
-      let index = 0;
-
-      while (list.length < 200) {
-        const subj = subjects[index % subjects.length];
-        const verb = verbs[Math.floor(index / subjects.length) % verbs.length];
-        const obj = objects[Math.floor(index / (subjects.length * verbs.length)) % objects.length];
-        const punc = punctuation[index % punctuation.length];
-
-        let sentence = `${subj} ${verb} ${obj}`;
-        if (punc !== ".") {
-          sentence = sentence.slice(0, -1) + punc;
+      var result = [];
+      for (var s = 0; s < subjects.length; s++) {
+        for (var v = 0; v < verbs.length; v++) {
+          if (result.length >= 200) break;
+          result.push(subjects[s] + " " + verbs[v] + " " + objects[s] + " " + endings[v]);
+          result.push(subjects[v] + " " + verbs[s] + " " + objects[v] + " " + endings[s]);
         }
-        list.push(sentence);
-        index++;
       }
-
-      return list;
+      return result.slice(0, 200);
     }
 
-    const offlineVocabulary = generateVocabulary();
-    const punctuatedSentences = generateSentences();
+    var fullWordPool = generate2000Words();
+    var sentences = generate200Sentences();
 
-    let wordList = [];
-    let remainingWords = [];
-    let currentTarget = "";
-    let wordCount = 0;
-    let currentMode = '';
+    var wordPoolShort = fullWordPool.filter(function(w) { return w.length <= 4; });
+    var wordPoolMedium = fullWordPool.filter(function(w) { return w.length > 4; });
 
-    let startTime = null;
-    let timerInterval = null;
-    let totalTypedChars = 0;
-    let correctTypedChars = 0;
-    let mistakes = 0;
-    let lastInputLength = 0;
+    var currentMode = '';
+    var selectedGoalType = 'words';
+    var selectedGoalValue = 25;
+    var selectedDiff = 'medium';
 
-    const menuScreen = document.getElementById("menu-screen");
-    const diffScreen = document.getElementById("difficulty-screen");
-    const practiceScreen = document.getElementById("practice-screen");
-    const wordDisplay = document.getElementById("word-display");
-    const typeInput = document.getElementById("type-input");
-    const counterDisplay = document.getElementById("counter");
-    const statsPanel = document.getElementById("stats-panel");
-    const progressBar = document.getElementById("progress-bar");
+    var wordCount = 0;
+    var currentTarget = '';
+    var activeWords = [];
+    
+    var startTime = null;
+    var timerInterval = null;
+    var totalTypedChars = 0;
+    var correctTypedChars = 0;
+    var mistakes = 0;
+    var lastInputLength = 0;
+
+    // Direct Event Listeners
+    document.getElementById('theme-toggle').addEventListener('click', function() {
+      document.body.classList.toggle('light-mode');
+      var isLight = document.body.classList.contains('light-mode');
+      this.textContent = isLight ? 'Dark Mode' : 'Light Mode';
+    });
+
+    document.getElementById('btn-easy').addEventListener('click', function() {
+      selectMode('easy');
+    });
+
+    document.getElementById('btn-expert').addEventListener('click', function() {
+      selectMode('expert');
+    });
+
+    document.getElementById('btn-start-expert').addEventListener('click', function() {
+      startPractice('expert');
+    });
+
+    var backBtns = document.querySelectorAll('.btn-back-menu');
+    for (var b = 0; b < backBtns.length; b++) {
+      backBtns[b].addEventListener('click', resetToMenu);
+    }
+
+    var goalBtns = document.querySelectorAll('.goal-btn');
+    for (var g = 0; g < goalBtns.length; g++) {
+      goalBtns[g].addEventListener('click', function() {
+        for (var i = 0; i < goalBtns.length; i++) goalBtns[i].classList.remove('active');
+        this.classList.add('active');
+        selectedGoalType = this.getAttribute('data-type');
+        selectedGoalValue = parseInt(this.getAttribute('data-val'), 10);
+      });
+    }
+
+    var diffBtns = document.querySelectorAll('.diff-btn');
+    for (var d = 0; d < diffBtns.length; d++) {
+      diffBtns[d].addEventListener('click', function() {
+        for (var i = 0; i < diffBtns.length; i++) diffBtns[i].classList.remove('active');
+        this.classList.add('active');
+        selectedDiff = this.getAttribute('data-diff');
+      });
+    }
+
+    document.getElementById('type-input').addEventListener('input', handleInput);
 
     function selectMode(mode) {
       currentMode = mode;
       if (mode === 'easy') {
         startPractice('easy');
       } else {
-        menuScreen.style.display = 'none';
-        diffScreen.style.display = 'block';
+        document.getElementById('menu-screen').style.display = 'none';
+        document.getElementById('difficulty-screen').style.display = 'block';
       }
     }
 
     function startPractice(mode) {
-      diffScreen.style.display = 'none';
-      menuScreen.style.display = 'none';
-      practiceScreen.style.display = 'block';
+      document.getElementById('difficulty-screen').style.display = 'none';
+      document.getElementById('menu-screen').style.display = 'none';
+      document.getElementById('result-screen').style.display = 'none';
+      document.getElementById('practice-screen').style.display = 'block';
+
+      resetStats();
 
       if (mode === 'expert') {
-        statsPanel.style.display = 'grid';
-        resetStats();
+        document.getElementById('stats-panel').style.display = 'flex';
+        if (selectedGoalType === 'time') {
+          document.getElementById("stat-time").textContent = selectedGoalValue + 's';
+        }
       } else {
-        statsPanel.style.display = 'none';
+        document.getElementById('stats-panel').style.display = 'none';
       }
 
-      let rawWords = [...offlineVocabulary];
-
-      if (mode === 'expert') {
-        const diff = document.getElementById("diff-select").value;
-        if (diff === 'easy_words') rawWords = rawWords.filter(w => w.length <= 4);
-        if (diff === 'medium_words') rawWords = rawWords.filter(w => w.length >= 5 && w.length <= 7);
-        if (diff === 'hard_words') rawWords = rawWords.filter(w => w.length >= 8);
-      }
-
-      wordList = rawWords;
-      remainingWords = [...wordList];
-
+      activeWords = (selectedDiff === 'easy') ? wordPoolShort : wordPoolMedium;
+      if (activeWords.length === 0) activeWords = fullWordPool;
       wordCount = 0;
-      typeInput.focus();
+      
+      var input = document.getElementById('type-input');
+      input.disabled = false;
+      input.focus();
       nextTask();
     }
 
     function nextTask() {
-      wordCount++;
-      const cyclePos = ((wordCount - 1) % 10) + 1;
-
-      // Update progress bar
-      progressBar.style.width = `${(cyclePos / 10) * 100}%`;
-
-      if (cyclePos === 10) {
-        counterDisplay.textContent = "⚡ Sentence Challenge ⚡";
-        const randomIndex = Math.floor(Math.random() * punctuatedSentences.length);
-        currentTarget = punctuatedSentences[randomIndex];
-      } else {
-        counterDisplay.textContent = `Word ${cyclePos} of 10`;
-
-        if (remainingWords.length === 0) remainingWords = [...wordList];
-
-        const randomIndex = Math.floor(Math.random() * remainingWords.length);
-        let word = remainingWords.splice(randomIndex, 1)[0];
-
-        if (Math.random() >= 0.5) {
-          word = word.charAt(0).toUpperCase() + word.slice(1);
-        }
-
-        currentTarget = word;
+      if (currentMode === 'expert' && selectedGoalType === 'words' && wordCount >= selectedGoalValue) {
+        completeTest();
+        return;
       }
 
-      typeInput.value = "";
+      wordCount++;
+      var counter = document.getElementById("counter");
+      if (currentMode === 'expert' && selectedGoalType === 'words') {
+        counter.textContent = "Word " + wordCount + " of " + selectedGoalValue;
+      } else {
+        counter.textContent = "Word " + wordCount;
+      }
+
+      if (wordCount % 10 === 0) {
+        counter.textContent = "⚡ Sentence Challenge ⚡";
+        currentTarget = sentences[Math.floor(Math.random() * sentences.length)];
+      } else {
+        currentTarget = activeWords[Math.floor(Math.random() * activeWords.length)];
+      }
+
+      var input = document.getElementById('type-input');
+      input.value = "";
       lastInputLength = 0;
       renderFormattedWord("");
     }
 
     function renderFormattedWord(typedVal) {
-      let html = "";
-      
-      for (let i = 0; i < currentTarget.length; i++) {
-        const targetChar = currentTarget[i];
-        
+      var html = "";
+      for (var i = 0; i < currentTarget.length; i++) {
+        var targetChar = currentTarget[i];
         if (i < typedVal.length) {
-          const typedChar = typedVal[i];
+          var typedChar = typedVal[i];
           if (typedChar === targetChar) {
-            html += `<span class="char-correct">${targetChar}</span>`;
+            html += '<span class="char-correct">' + targetChar + '</span>';
           } else {
-            html += `<span class="char-wrong">${targetChar}</span>`;
+            html += '<span class="char-wrong">' + targetChar + '</span>';
           }
         } else if (i === typedVal.length) {
-          html += `<span class="char-current">${targetChar}</span>`;
+          html += '<span class="char-current">' + targetChar + '</span>';
         } else {
-          html += `<span>${targetChar}</span>`;
+          html += '<span>' + targetChar + '</span>';
         }
       }
-
-      if (typedVal.length > currentTarget.length) {
-        const extraText = typedVal.slice(currentTarget.length);
-        html += `<span class="char-extra">${extraText}</span>`;
-      }
-
-      wordDisplay.innerHTML = html;
+      document.getElementById('word-display').innerHTML = html;
     }
 
-    typeInput.addEventListener("input", () => {
-      const val = typeInput.value;
-
+    function handleInput() {
+      var input = document.getElementById('type-input');
+      var val = input.value;
       renderFormattedWord(val);
 
       if (currentMode === 'expert') {
@@ -432,17 +548,9 @@
 
         if (val.length > lastInputLength) {
           totalTypedChars++;
-          const typedIndex = val.length - 1;
-          
-          if (currentTarget && typedIndex < currentTarget.length) {
-            const typedChar = val[typedIndex];
-            const targetChar = currentTarget[typedIndex];
-
-            if (typedChar === targetChar) {
-              correctTypedChars++;
-            } else {
-              mistakes++;
-            }
+          var typedIndex = val.length - 1;
+          if (typedIndex < currentTarget.length && val[typedIndex] === currentTarget[typedIndex]) {
+            correctTypedChars++;
           } else {
             mistakes++;
           }
@@ -454,44 +562,48 @@
       if (val === currentTarget) {
         nextTask();
       }
-    });
+    }
 
     function updateStats() {
       if (!startTime) return;
-      
-      const elapsedSeconds = Math.max(1, Math.floor((new Date() - startTime) / 1000));
-      document.getElementById("stat-time").textContent = `${elapsedSeconds}s`;
+      var elapsedSeconds = Math.max(1, Math.floor((new Date() - startTime) / 1000));
 
-      const wpm = Math.round((correctTypedChars / 5) / (elapsedSeconds / 60));
+      if (selectedGoalType === 'time') {
+        var remaining = selectedGoalValue - elapsedSeconds;
+        document.getElementById("stat-time").textContent = Math.max(0, remaining) + 's';
+        if (remaining <= 0) {
+          completeTest();
+          return;
+        }
+      } else {
+        document.getElementById("stat-time").textContent = elapsedSeconds + 's';
+      }
+
+      var wpm = Math.round((correctTypedChars / 5) / (elapsedSeconds / 60));
       document.getElementById("stat-wpm").textContent = Math.max(0, wpm);
 
-      const acc = totalTypedChars > 0 ? Math.round((correctTypedChars / totalTypedChars) * 100) : 100;
-      document.getElementById("stat-acc").textContent = `${Math.max(0, acc)}%`;
-
+      var acc = totalTypedChars > 0 ? Math.round((correctTypedChars / totalTypedChars) * 100) : 100;
+      document.getElementById("stat-acc").textContent = Math.max(0, acc) + '%';
       document.getElementById("stat-mistakes").textContent = mistakes;
+    }
+
+    function completeTest() {
+      clearInterval(timerInterval);
+      document.getElementById('type-input').disabled = true;
+
+      var elapsedSeconds = Math.max(1, Math.floor((new Date() - startTime) / 1000));
+      var wpm = Math.round((correctTypedChars / 5) / (elapsedSeconds / 60));
+      var acc = totalTypedChars > 0 ? Math.round((correctTypedChars / totalTypedChars) * 100) : 100;
+
+      document.getElementById("final-wpm").textContent = Math.max(0, wpm);
+      document.getElementById("final-acc").textContent = Math.max(0, acc) + '%';
+      document.getElementById("final-time").textContent = elapsedSeconds + 's';
+      document.getElementById("final-mistakes").textContent = mistakes;
+
+      document.getElementById('practice-screen').style.display = 'none';
+      document.getElementById('result-screen').style.display = 'block';
     }
 
     function resetStats() {
       clearInterval(timerInterval);
-      startTime = null;
-      totalTypedChars = 0;
-      correctTypedChars = 0;
-      mistakes = 0;
-      lastInputLength = 0;
-      document.getElementById("stat-wpm").textContent = "0";
-      document.getElementById("stat-acc").textContent = "100%";
-      document.getElementById("stat-time").textContent = "0s";
-      document.getElementById("stat-mistakes").textContent = "0";
-    }
-
-    function resetToMenu() {
-      clearInterval(timerInterval);
-      progressBar.style.width = "0%";
-      practiceScreen.style.display = 'none';
-      diffScreen.style.display = 'none';
-      menuScreen.style.display = 'block';
-    }
-  </script>
-
-</body>
-</html>
+      startTime =
