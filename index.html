@@ -53,11 +53,11 @@
       background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-top: 1px solid rgba(255, 255, 255, 0.35);
-      padding: 28px 20px;
+      padding: 24px 16px;
       border-radius: 24px;
       text-align: center;
       width: 100%;
-      max-width: 360px;
+      max-width: 380px;
       box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
     }
 
@@ -74,22 +74,20 @@
       width: 100%;
       font-size: 16px;
       font-weight: 600;
-      padding: 16px;
+      padding: 14px;
       border: 0;
       border-radius: 16px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       color: #ffffff;
       cursor: pointer;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
     .btn-easy { 
-      background: #059669;
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     }
     
     .btn-expert { 
-      background: #4f46e5;
       background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
     }
 
@@ -136,10 +134,10 @@
 
     /* Practice Area */
     #word-display {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
-      margin: 20px 0;
-      min-height: 48px;
+      margin: 14px 0;
+      min-height: 40px;
       letter-spacing: 1px;
       word-break: break-word;
     }
@@ -149,8 +147,8 @@
     .char-current { border-bottom: 2px solid #818cf8; }
 
     #type-input {
-      font-size: 18px;
-      padding: 14px;
+      font-size: 16px;
+      padding: 12px;
       width: 100%;
       text-align: center;
       border: 1px solid rgba(255, 255, 255, 0.2);
@@ -158,7 +156,7 @@
       outline: none;
       background: rgba(0, 0, 0, 0.4);
       color: #ffffff;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     #stats-panel {
@@ -167,9 +165,9 @@
       gap: 8px;
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 12px;
+      padding: 10px;
       border-radius: 14px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       font-size: 11px;
     }
 
@@ -180,7 +178,7 @@
 
     .stat-box span {
       display: block;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
     }
 
@@ -188,10 +186,59 @@
       font-size: 13px;
       font-weight: 700;
       color: #a5b4fc;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
-    /* Light Theme Adjustments (Matched to Screenshot) */
+    /* Non-Interactive Visual Glowing Keyboard */
+    .visual-keyboard {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 8px 4px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      pointer-events: none; /* Makes it completely non-touch responsive */
+      user-select: none;
+    }
+
+    .vk-row {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .vk-key {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #94a3b8;
+      flex: 1;
+      padding: 9px 0;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .vk-key.wide {
+      flex: 1.5;
+      font-size: 10px;
+    }
+
+    /* Glowing Active Key State */
+    .vk-key.glowing {
+      background: #38bdf8 !important;
+      border-color: #7dd3fc !important;
+      color: #0f172a !important;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.8);
+      transform: scale(1.05);
+      font-weight: 800;
+    }
+
+    /* Light Theme Adjustments */
     body.light-mode {
       background-color: #f0f1ff;
       background-image: linear-gradient(180deg, #eef2ff 0%, #fae8ff 100%);
@@ -201,7 +248,6 @@
     body.light-mode .glass-card {
       background: #ffffff;
       border: 1px solid #ffffff;
-      border-radius: 28px;
       box-shadow: 0 12px 35px rgba(147, 51, 234, 0.08);
     }
 
@@ -272,6 +318,24 @@
     body.light-mode .stat-box span {
       color: #2e1065;
     }
+
+    body.light-mode .visual-keyboard {
+      background: rgba(91, 70, 246, 0.04);
+      border: 1px solid rgba(91, 70, 246, 0.15);
+    }
+
+    body.light-mode .vk-key {
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid #cbd5e1;
+      color: #475569;
+    }
+
+    body.light-mode .vk-key.glowing {
+      background: #7c3aed !important;
+      border-color: #a78bfa !important;
+      color: #ffffff !important;
+      box-shadow: 0 0 12px rgba(124, 58, 237, 0.6);
+    }
   </style>
 </head>
 <body>
@@ -325,6 +389,44 @@
 
         <div id="word-display">...</div>
         <input type="text" id="type-input" placeholder="Type here..." autocomplete="off" autocapitalize="none" spellcheck="false">
+        
+        <!-- Non-Responsive Visual Glowing Keyboard Preview -->
+        <div class="visual-keyboard" id="visual-keyboard">
+          <div class="vk-row">
+            <div class="vk-key" data-key="q">q</div>
+            <div class="vk-key" data-key="w">w</div>
+            <div class="vk-key" data-key="e">e</div>
+            <div class="vk-key" data-key="r">r</div>
+            <div class="vk-key" data-key="t">t</div>
+            <div class="vk-key" data-key="y">y</div>
+            <div class="vk-key" data-key="u">u</div>
+            <div class="vk-key" data-key="i">i</div>
+            <div class="vk-key" data-key="o">o</div>
+            <div class="vk-key" data-key="p">p</div>
+          </div>
+          <div class="vk-row">
+            <div class="vk-key" data-key="a">a</div>
+            <div class="vk-key" data-key="s">s</div>
+            <div class="vk-key" data-key="d">d</div>
+            <div class="vk-key" data-key="f">f</div>
+            <div class="vk-key" data-key="g">g</div>
+            <div class="vk-key" data-key="h">h</div>
+            <div class="vk-key" data-key="j">j</div>
+            <div class="vk-key" data-key="k">k</div>
+            <div class="vk-key" data-key="l">l</div>
+          </div>
+          <div class="vk-row">
+            <div class="vk-key wide" data-key="z">z</div>
+            <div class="vk-key" data-key="x">x</div>
+            <div class="vk-key" data-key="c">c</div>
+            <div class="vk-key" data-key="v">v</div>
+            <div class="vk-key" data-key="b">b</div>
+            <div class="vk-key" data-key="n">n</div>
+            <div class="vk-key" data-key="m">m</div>
+            <div class="vk-key wide" data-key=" ">space</div>
+          </div>
+        </div>
+
         <button type="button" class="btn btn-secondary btn-back-menu">Main Menu</button>
       </div>
 
@@ -406,7 +508,6 @@
     var mistakes = 0;
     var lastInputLength = 0;
 
-    // Direct Event Listeners
     document.getElementById('theme-toggle').addEventListener('click', function() {
       document.body.classList.toggle('light-mode');
       var isLight = document.body.classList.contains('light-mode');
@@ -513,6 +614,7 @@
       input.value = "";
       lastInputLength = 0;
       renderFormattedWord("");
+      highlightNextKey("");
     }
 
     function renderFormattedWord(typedVal) {
@@ -535,10 +637,31 @@
       document.getElementById('word-display').innerHTML = html;
     }
 
+    function highlightNextKey(typedVal) {
+      // Remove glow from all keys first
+      var allKeys = document.querySelectorAll('.vk-key');
+      for (var i = 0; i < allKeys.length; i++) {
+        allKeys[i].classList.remove('glowing');
+      }
+
+      // Find the next expected character to glow
+      var nextIndex = typedVal.length;
+      if (nextIndex < currentTarget.length) {
+        var nextChar = currentTarget[nextIndex].toLowerCase();
+        for (var k = 0; k < allKeys.length; k++) {
+          if (allKeys[k].getAttribute('data-key') === nextChar) {
+            allKeys[k].classList.add('glowing');
+            break;
+          }
+        }
+      }
+    }
+
     function handleInput() {
       var input = document.getElementById('type-input');
       var val = input.value;
       renderFormattedWord(val);
+      highlightNextKey(val);
 
       if (currentMode === 'expert') {
         if (!startTime) {
